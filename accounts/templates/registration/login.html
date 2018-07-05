@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load bootstrap4 i18n %}
+
+{% block content %}
+<div class="container mt-5">
+	<div class="row">
+		<div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+			<div class="jumbotron">
+				<h1>{% trans "Login" %}</h1>
+				<hr>
+				{% if next %}
+				    {% if user.is_authenticated %}
+				    <p>{% trans "Your account doesn't have access to this page. To proceed, please login with an account that has access." %}</p>
+				    {% else %}
+				    <p>{% trans "Please login to see this page." %}</p>
+				    {% endif %}
+				{% endif %}
+				<form method="post" action="{% url 'accounts:login' %}">
+					{% csrf_token %}
+					{% bootstrap_form form %}
+					<p class="text-right">{% bootstrap_button _('Login') 'submit' 'btn-primary' %}</p>
+					<p class="text-right small"><a href="{% url 'accounts:password_reset' %}">Lost password?</a></p>
+					<input type="hidden" name="next" value="{{ next }}" />
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
