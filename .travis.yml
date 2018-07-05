@@ -4,7 +4,7 @@ language: python
     services:
       - postgresql
     env:
-      -DJANGO=2.0 DB=postgres
+      - DJANGO=2.0 DB=postgres
     install:
       - pip install -r requirements.txt
     before_script:
