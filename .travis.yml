@@ -3,8 +3,8 @@ python:
   - "3.6"
 services:
   - postgresql
-env:
-  - DJANGO=2.0 DB=postgres
+#env:
+#  - DJANGO=2.0 DB=postgres
 install:
   - pip install pipenv --upgrade-strategy=only-if-needed
   - pipenv install
