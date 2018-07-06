@@ -8,8 +8,11 @@ services:
 install:
   - pip install pipenv --upgrade-strategy=only-if-needed
   - pipenv install
+  - pipenv install coveralls
 before_script:
   - psql -c "CREATE DATABASE travisci;" -U postgres
   - pipenv run python manage.py migrate
 script:
-  - pipenv run python manage.py test
+  - pipenv run coverage run manage.py test
+after_success:
+  - pipenv run coveralls
