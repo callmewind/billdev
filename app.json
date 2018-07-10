@@ -1,9 +1,14 @@
 {
-  "name": "billdev",
-  "description": "Freelance invoice management",
-  "repository": "https://github.com/callmewind/billdev",
-  "image": "heroku/python",
-  "keywords": ["django", "invoice", "billing", "freelance" ],
-  "website": "https://github.com/callmewind/billdev",
-  "addons" : [ "heroku-postgresql", "memcachier" ]
+	"name": "billdev",
+	"description": "Freelance invoice management",
+	"repository": "https://github.com/callmewind/billdev",
+	"image": "heroku/python",
+	"keywords": ["django", "invoice", "billing", "freelance" ],
+	"website": "https://github.com/callmewind/billdev",
+	"addons" : [ "heroku-postgresql", "memcachier" ],
+	"env": {
+	"SECRET_KEY": {
+		"description": "A secret key for verifying the integrity of signed cookies.",
+		"generator": "secret"
+	}
 }
