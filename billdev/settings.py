@@ -25,7 +25,7 @@ SECRET_KEY = '' # Secret key is set in SECRET_KEY envionment variable
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
 
-SECURE_SSL_REDIRECT = not DEBUG
+SECURE_SSL_REDIRECT = not DEBUG and not bool(os.environ.get('CI', False))
 
 ALLOWED_HOSTS = [ 'billdev.herokuapp.com' ]
 
