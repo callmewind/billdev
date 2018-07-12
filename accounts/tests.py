@@ -1,15 +1,15 @@
 from django.test import TestCase
 
-from django.urls import reverse
-from django.test import Client
 
 class UserManagerTestCase(TestCase):
     def setUp(self):
+        from django.test import Client
         self.client = Client()
 
 
     def test_user_registration(self):
         from django.core import mail
+        from django.urls import reverse
 
         #Load login page
         response = self.client.get(reverse('accounts:sign-up'))

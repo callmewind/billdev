@@ -1,19 +1,19 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from django.contrib.auth import get_user_model
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
+#from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.base import RedirectView
 from django.conf import settings
 
-
+'''
 class ActivateAccountTokenGenerator(PasswordResetTokenGenerator):
     
     def _make_hash_value(self, user, timestamp):
         return (
             str(user.pk) + str(timestamp) + str(user.is_active)
         )
-
+'''
 
 class SignUpView(CreateView):
     template_name = 'accounts/sign-up.html'
