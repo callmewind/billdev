@@ -195,6 +195,15 @@ def get_cache():
 
 CACHES = get_cache()
 
+try:
+    EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
+    EMAIL_HOST= 'smtp.sendgrid.net'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
+except:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 import django_heroku
-django_heroku.settings(locals(), staticfiles=False)
+django_heroku.settings(locals())
