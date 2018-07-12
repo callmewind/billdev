@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'DEV_SECRET_KEY_OVERRIDEN_IN_PRODUCTION'
+SECRET_KEY = '' # Secret key is set in SECRET_KEY envionment variable
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
@@ -72,6 +72,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'debug' : DEBUG,
         },
     },
 ]
@@ -194,4 +195,4 @@ CACHES = get_cache()
 
 
 import django_heroku
-django_heroku.settings(locals())
+django_heroku.settings(locals(), staticfiles=False)
