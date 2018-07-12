@@ -28,7 +28,10 @@ class SignUpView(CreateView):
         from django.urls import reverse
         import urllib
         
-        user = form.save()
+        user = form.save(commit=False)
+        user.is_active = False
+        user.save()
+        form.save_m2m()
         token_generator = ActivateAccountTokenGenerator()
         
         activation_link = self.request.build_absolute_uri(
@@ -73,12 +76,14 @@ class ActivateView(RedirectView):
                 raise Http404
         elif token_generator.check_token(user, self.kwargs['token']):
             from django.contrib.auth import login
+            from django.contrib import messages
 
             user.is_active = True
             user.save()
             login(request, user, 'django.contrib.auth.backends.ModelBackend')
             messages.success(request, _('Your account has been activated. Welcome!'))
-
-        return super(ActivateAccount, self).dispatch(request, *args, **kwargs)
+            return super(ActivateView, self).dispatch(request, *args, **kwargs)
+        else:
+            raise Http404
 
 

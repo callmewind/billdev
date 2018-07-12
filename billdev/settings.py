@@ -82,6 +82,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'billdev.wsgi.application'
 
+LOGIN_REDIRECT_URL = '/'#Fix once we have a better place
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases

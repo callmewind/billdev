@@ -51,8 +51,7 @@ class UserManagerTestCase(TestCase):
 
         from django.contrib import auth
         user = auth.get_user(self.client)
-        self.assertIs(user.is_authenticated(), True)
-
+        self.assertIs(user.is_authenticated, True)
 
         self.client.session.flush()
         response = self.client.get(activation_link)      
