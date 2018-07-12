@@ -40,11 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bills',
-    'accounts',
     'bootstrap4',
     'import_export',
     'debug_toolbar',
+    'bills',
+    #'accounts',
+    
 ]
 
 MIDDLEWARE = [
