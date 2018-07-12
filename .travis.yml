@@ -3,8 +3,8 @@ python:
   - "3.6"
 services:
   - postgresql
-#env:
-#  - DB=postgres
+env:
+  - SECRET_KEY=FOO
 install:
   - pip install pipenv --upgrade-strategy=only-if-needed
   - pipenv install

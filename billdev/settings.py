@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'import_export',
     'debug_toolbar',
     'bills',
-    #'accounts',
+    'accounts',
     
 ]
 
