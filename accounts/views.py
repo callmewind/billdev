@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
-from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.base import RedirectView
 from django.conf import settings
+from .forms import *
 
 
 class ActivateAccountTokenGenerator(PasswordResetTokenGenerator):
@@ -17,8 +17,7 @@ class ActivateAccountTokenGenerator(PasswordResetTokenGenerator):
 
 class SignUpView(CreateView):
     template_name = 'accounts/sign-up.html'
-    model = get_user_model()
-    fields = ('first_name', 'last_name', 'email', 'password',)
+    form_class = SignUpForm
 
     def form_valid(self, form):
         from django.template.response import TemplateResponse
@@ -28,10 +27,8 @@ class SignUpView(CreateView):
         from django.urls import reverse
         import urllib
         
-        user = form.save(commit=False)
-        user.is_active = False
-        user.save()
-        form.save_m2m()
+        user = form.save()
+        
         token_generator = ActivateAccountTokenGenerator()
         
         activation_link = self.request.build_absolute_uri(
