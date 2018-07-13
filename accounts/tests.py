@@ -16,6 +16,20 @@ class UserManagerTestCase(TestCase):
         self.client = Client()
 
 
+    def test_create_superuser(self):
+        from .models import User
+        User.objects.create_superuser(**self.test_data)
+
+        with self.assertRaises(ValueError):
+            User.objects.create_superuser(email='', password='')
+
+        with self.assertRaises(ValueError):
+            User.objects.create_superuser(**self.test_data, is_staff=False)
+
+        with self.assertRaises(ValueError):
+            User.objects.create_superuser(**self.test_data, is_superuser=False)
+
+
     def test_user_registration(self):
         from django.core import mail
         from django.urls import reverse
@@ -58,8 +72,12 @@ class UserManagerTestCase(TestCase):
         user = auth.get_user(self.client)
         self.assertIs(user.is_authenticated, True)
 
+        #Try again the link (it should work only first time)
         self.client.session.flush()
         response = self.client.get(activation_link)      
 
         self.assertEqual(response.status_code, 404)
 
+        #Try to register again
+        response = self.client.post(reverse('accounts:sign-up'), self.test_data)
+        self.assertContains(response, 'This email is already in use', status_code=200)
