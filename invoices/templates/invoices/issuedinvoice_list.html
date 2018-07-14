@@ -1,8 +1,66 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n l10n %}
 
 {% block content %}
 <div class="container">
-	<a href="{% url 'invoices:issued-create' %}" class="btn btn-primary">{% trans "New invoice" %}</a>
+	<div class="form-group">
+		<a href="{% url 'invoices:issued-create' %}" class="btn btn-primary">{% trans "New invoice" %}</a>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">
+					{% trans "Number" %} <i class="fa fa-sort"></i>
+				</th>
+				<th scope="col">
+					{% trans "Client" %} <i class="fa fa-sort"></i>
+				</th>
+				<th scope="col">
+					{% trans "Date" %} <i class="fa fa-sort"></i>
+				</th>
+				<th scope="col">
+					{% trans "Net" %} <i class="fa fa-sort"></i>
+				</th>
+				<th scope="col">
+					{% trans "Vat" %} <i class="fa fa-sort"></i>
+				</th>
+				<th scope="col">
+					{% trans "IRPF" %} <i class="fa fa-sort"></i>
+				</th>
+				<th scope="col">
+					{% trans "Amount" %} <i class="fa fa-sort"></i>
+				</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for invoice in object_list.all %}
+			<tr>
+				<td>
+					<a href="{% url 'invoices:issued-detail' invoice.pk %}" title="{% trans 'View' %}" aria-label="{% trans 'View' %}">
+						{{ invoice.series }}-{{ invoice.number }}
+					</a>
+				</td>
+				<td>{{ invoice.client }}</td>
+				<td>{{ invoice.date|date }}</td>
+				<td class="text-right">{{ invoice.net }}</td>
+				<td class="text-right">{{ invoice.vat }}</td>
+				<td class="text-right">{{ invoice.irpf }}</td>
+				<td class="text-right">{{ invoice.amount }}</td>
+				<td class="text-nowrap">
+					<a class="btn btn-sm btn-success" href="{% url 'invoices:issued-detail' invoice.pk %}" title="{% trans 'View' %}" aria-label="{% trans 'View' %}">
+						<i class="fa fa-file-invoice"></i>
+					</a>
+					<a class="btn btn-sm btn-info" href="{% url 'invoices:issued-detail' invoice.pk %}" title="{% trans 'Edit' %}" aria-label="{% trans 'Edit' %}">
+						<i class="fa fa-edit"></i>
+					</a>
+					<a class="btn btn-sm btn-danger" href="{% url 'invoices:issued-detail' invoice.pk %}" title="{% trans 'Delete' %}" aria-label="{% trans 'Delete' %}">
+						<i class="fa fa-trash-alt"></i>
+					</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 </div>
 {% endblock content %}
