@@ -1,1 +1,8 @@
 {% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+	<a href="{% url 'invoices:issued-create' %}" class="btn btn-primary">{% trans "New invoice" %}</a>
+</div>
+{% endblock content %}

@@ -54,7 +54,7 @@ class SignUpView(CreateView):
         if self.request.user.is_authenticated:
             from django.shortcuts import redirect
             return redirect(settings.LOGIN_REDIRECT_URL)
-        return super(SignUpView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ActivateView(RedirectView):
@@ -84,7 +84,7 @@ class ActivateView(RedirectView):
             user.save()
             login(request, user, 'django.contrib.auth.backends.ModelBackend')
             messages.success(request, _('Your account has been activated. Welcome!'))
-            return super(ActivateView, self).dispatch(request, *args, **kwargs)
+            return super().dispatch(request, *args, **kwargs)
         else:
             raise Http404
 
