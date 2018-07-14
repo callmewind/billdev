@@ -24,7 +24,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name="home.html"), name='home' ),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('admin/', admin.site.urls),
-    path('bills/', include('bills.urls', namespace='bills')),
+    path('invoices/', include('invoices.urls', namespace='invoices')),
 ]
 
 if settings.DEBUG:

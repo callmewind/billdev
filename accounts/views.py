@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.translation import ugettext_lazy as _
@@ -50,6 +49,12 @@ class SignUpView(CreateView):
             html_message=activation_link)
         #send_mail(user.site, 'guides/email/promo-confirm-email.html', user.email, _('Just one click to access to your Guide %(mobile_emoji)s'  % {'mobile_emoji': u"\U0001F4F2" }), context, user.web_language)
         return TemplateResponse(self.request, 'accounts/sign-up-confirm.html', { 'email': user.email })
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            from django.shortcuts import redirect
+            return redirect(settings.LOGIN_REDIRECT_URL)
+        return super(SignUpView, self).dispatch(request, *args, **kwargs)
 
 
 class ActivateView(RedirectView):

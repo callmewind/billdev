@@ -10,15 +10,21 @@
 	</head>
 	<body class="d-flex flex-column bg-light">
 		{% block nav %}
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
 			<div class="container">
-				<a class="navbar-brand" href="#">Billdev</a>
+				<a class="navbar-brand" href="{% url 'home' %}">Billdev</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{% trans 'Toggle navigation' %}">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ml-auto">
 						{% if request.user.is_authenticated %}
+						<li class="nav-item{% if request.resolver_match.url_name == 'issued-list' %} active{% endif %}">
+							<a class="nav-link" href="{% url 'invoices:issued-list' %}">
+								{% trans "Issued Invoices" %}
+								{% if request.resolver_match.url_name == 'issued-list' %}<span class="sr-only">({% trans "current" %})</span>{% endif %}
+							</a>
+						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								{{ request.user.get_short_name }}
@@ -27,7 +33,7 @@
 								<a class="dropdown-item" href="#">Action</a>
 								<a class="dropdown-item" href="#">Another action</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="{% url 'accounts:logout' %}">Log out</a>
+								<a class="dropdown-item" href="{% url 'accounts:logout' %}">{% trans "Log out" %}</a>
 							</div>
 						</li>
 						{% else %}
@@ -39,12 +45,13 @@
 						</li>
 						<li class="nav-item{% if request.resolver_match.url_name == 'sign-up' %} active{% endif %}">
 							<a class="nav-link" href="{% url 'accounts:sign-up' %}">
-								Sign up
+								~% trans "Sign up" %}
 								{% if request.resolver_match.url_name == 'sign-up' %}<span class="sr-only">({% trans "current" %})</span>{% endif %}
 							</a>
 						</li>
 						<li class="nav-item{% if request.resolver_match.url_name == 'login' %} active{% endif %}">
-							<a class="nav-link" href="{% url 'accounts:login' %}">Log in
+							<a class="nav-link" href="{% url 'accounts:login' %}">
+								{% trans "Log in" %}
 								{% if request.resolver_match.url_name == 'login' %}<span class="sr-only">({% trans "current" %})</span>{% endif %}
 							</a>
 						</li>
@@ -55,7 +62,7 @@
 		</nav>
 		{% endblock nav %}
 		{% block messages %}
-			{% if messages %}<div class="container my-5">{% bootstrap_messages %}</div>{% endif %}
+			{% if messages %}<div class="containers">{% bootstrap_messages %}</div>{% endif %}
 		{% endblock messages %}
 		{% block content %}{% endblock content %}
 		{% block footer %}

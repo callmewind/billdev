@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'import_export',
     'debug_toolbar',
-    'bills',
+    'invoices',
     'accounts',
     
 ]
